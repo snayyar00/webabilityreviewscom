@@ -22,9 +22,12 @@ whether the work actually gets done.
 **What he rates:** easy WordPress setup, accessibility statement generation,
 audit reports, and lifetime-deal value.
 
-**What he wants next:** bulk issue exports, better workflows for large sites,
-and improved handling of template-level issues that repeat across many pages.
+**What he wants next:** bulk exports of accessibility issues, more scalable
+review workflows for larger sites, better handling of template-level issues
+that repeat across many pages, and continued product development.
 
 That last one is the sharpest request in the set. On a large site, one bad
 template is not one issue — it is the same issue a thousand times. The founder
 replied that the team is working toward more automatic fixes.
+
+He keeps a longer write-up at [marketingwithdave.com](https://marketingwithdave.com/webability-review/).

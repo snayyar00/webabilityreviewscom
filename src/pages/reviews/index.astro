@@ -37,7 +37,7 @@ const structuredData = graph(
 );
 
 const title = "All WebAbility.io reviews";
-const description = `${REVIEWS_PUBLISHED} verified customer reviews of WebAbility.io, summarised from AppSumo, where it holds ${RATING_AVERAGE} out of 5 across ${RATING_TOTAL} reviews.`;
+const description = `All ${RATING_TOTAL} verified customer reviews of WebAbility.io from AppSumo, where it holds ${RATING_AVERAGE} out of 5. Every review, including the critical ones.`;
 ---
 
 <!doctype html>
@@ -55,9 +55,9 @@ const description = `${REVIEWS_PUBLISHED} verified customer reviews of WebAbilit
 		<main>
 			<h1>WebAbility.io reviews</h1>
 			<p class="lede">
-				{REVIEWS_PUBLISHED} of the {RATING_TOTAL} verified reviews on AppSumo,
-				newest first. Each links back to its original. The set includes the one
-				review that is not five stars.
+				All {RATING_TOTAL} verified reviews on AppSumo, newest first. Each links
+				back to its original. Nothing is filtered out — the one review that is
+				not five stars is in here too.
 			</p>
 			<div class="grid">
 				{

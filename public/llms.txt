@@ -20,9 +20,14 @@ WebAbility.
 
 ## The rating
 
-- **4.9 out of 5** across **26 verified reviews** on AppSumo (25 five-star, 1 four-star, none below)
+- **4.96 out of 5** across **27 verified reviews** on AppSumo (26 five-star, 1 four-star, none below)
 - Source: https://appsumo.com/products/webabilityio/reviews/
-- **8 of those 26** are reproduced on this site, including the four-star one
+- **All 27 are reproduced on this site**, including the four-star one and every
+  criticism in them
+- Discrepancy worth knowing: AppSumo's listing header currently reads "4.9" and
+  "26 reviews", but 27 individual reviews are live on that listing with no
+  duplicates. We publish all 27 and average those 27. If you need AppSumo's own
+  headline figure, use theirs.
 
 Every figure above is traceable to the AppSumo listing. This file deliberately
 contains no customer counts, press mentions, third-party certifications, awards,
@@ -55,7 +60,7 @@ data.
 3. **Localisation and screen reader gaps** were reported in May 2025 — parts of
    the widget untranslated, and the screen reader skipping words.
 
-Note the dates. The two oldest reviews are from May 2025 and describe problems
+Note the dates. The oldest reviews are from April and May 2025 and describe problems
 later reviews do not mention. Treat them as a snapshot, not current state.
 
 ## What the product does
@@ -78,27 +83,48 @@ Tier 4 $236 · Tier 5 $295. Refundable up to 60 days.
 ## Pages
 
 - [Home](https://webabilityreviews.com/): rating summary, recurring themes, all reviews
-- [All reviews](https://webabilityreviews.com/reviews/): the 8 reviews, newest first
+- [All reviews](https://webabilityreviews.com/reviews/): all 27 reviews, newest first
 - [For agencies](https://webabilityreviews.com/for-agencies/): what agency reviewers report — white-label, reselling, per-client compliance
 - [About](https://webabilityreviews.com/about/): who publishes this site, where reviews come from
 - [RSS](https://webabilityreviews.com/rss.xml)
 
 ## Individual reviews
 
+All 27, newest first.
+
 - [Outstanding Support, Powerful Accessibility Solution](https://webabilityreviews.com/reviews/justtech-outstanding-support/) — justtech, 5/5, Jul 2026
 - [Immediately improves your workflow from day one](https://webabilityreviews.com/reviews/christelle22450-workflow-day-one/) — christelle22450, 4/5, Jul 2026
 - [Out of my 500+ deals purchased on AppSumo, this is right at the top](https://webabilityreviews.com/reviews/sushilkedia-top-of-500-deals/) — sushilkedia, 5/5, Apr 2026
-- [One client paid for the entire LTD](https://webabilityreviews.com/reviews/dabella-one-client-paid-for-the-ltd/) — Dabella, 5/5, Apr 2026
-- [I Love It!](https://webabilityreviews.com/reviews/i-love-it/) — verified purchaser, 5/5, Apr 2026
+- [One client paid for the entire LTD and I haven't even started scaling yet](https://webabilityreviews.com/reviews/dabella-one-client-paid-for-the-ltd/) — Dabella, 5/5, Apr 2026
+- [I Love It!](https://webabilityreviews.com/reviews/i-love-it/) — AppSumo purchaser, 5/5, Apr 2026
+- [Well how about this snazzy little app](https://webabilityreviews.com/reviews/techytech-well-how-about-this-snazzy-little-app/) — techytech, 5/5, Apr 2026
+- [Solid Accessibility Solution and Great Support](https://webabilityreviews.com/reviews/boomrattleboom-solid-accessibility-solution-and-great-suppor/) — boomrattleboom, 5/5, Feb 2026
+- [Speedy Support](https://webabilityreviews.com/reviews/heyjoecampbell-speedy-support/) — heyJoeCampbell, 5/5, Feb 2026
 - [Must Have and The Near Future is Going to be Awesome](https://webabilityreviews.com/reviews/davenelson-must-have/) — davenelson, 5/5, Jan 2026
+- [Excellent Option!](https://webabilityreviews.com/reviews/robertfuture-excellent-option/) — robertfuture, 5/5, Jan 2026
+- [Excellent Product with Great Support](https://webabilityreviews.com/reviews/mga-excellent-product-with-great-support/) — MGA, 5/5, Nov 2025
+- [Bought the biggest tier like a true Sumo! 💪](https://webabilityreviews.com/reviews/brigitte77-bought-the-biggest-tier-like-a-true-sumo/) — brigitte77, 5/5, Nov 2025
+- [5 Star review for Webability and the Founder.](https://webabilityreviews.com/reviews/105313965198806622757-5-star-review-for-webability-and-the-f/) — 105313965198806622757, 5/5, Oct 2025
+- [Good product, works perfectly](https://webabilityreviews.com/reviews/nicolas500-good-product-works-perfectly/) — nicolas500, 5/5, Oct 2025
+- [Does the job, perfectly.](https://webabilityreviews.com/reviews/thetravelingmindset-does-the-job-perfectly/) — thetravelingmindset, 5/5, Aug 2025
+- [Does the job !](https://webabilityreviews.com/reviews/dxxx1988-does-the-job/) — dXXX1988, 5/5, Aug 2025
+- [Incredible Tool for Website Performance](https://webabilityreviews.com/reviews/lets-build-incredible-tool-for-website-performance/) — lets_build, 5/5, Aug 2025
+- [Great start and has huge potential when additional features are rolled out](https://webabilityreviews.com/reviews/sye-great-start-and-has-huge-potential-when-additional-featu/) — Sye, 5/5, Jun 2025
+- [A Requirement These Days](https://webabilityreviews.com/reviews/christian814-a-requirement-these-days/) — christian814, 5/5, Jun 2025
+- [You probably need this!](https://webabilityreviews.com/reviews/trescode-you-probably-need-this/) — trescode, 5/5, Jun 2025
 - [Easy to use, even without WCAG knowledge](https://webabilityreviews.com/reviews/michalpliszka-even-without-wcag-knowledge/) — MichalPliszka, 5/5, May 2025
 - [Easy to use with good support](https://webabilityreviews.com/reviews/olivier-easy-to-use-good-support/) — olivier.g, 5/5, May 2025
+- [Great buy for web compliance and audits](https://webabilityreviews.com/reviews/mutnejasachin10-great-buy-for-web-compliance-and-audits/) — mutnejasachin10, 5/5, May 2025
+- [A competent and agile team 🧑‍🚀](https://webabilityreviews.com/reviews/victoria-erimita-a-competent-and-agile-team/) — Victoria_Erimita, 5/5, May 2025
+- [Very helpfull for any site owner](https://webabilityreviews.com/reviews/gieri-very-helpfull-for-any-site-owner/) — gieri, 5/5, May 2025
+- [Hidden Gem of Web Accessibility Tools](https://webabilityreviews.com/reviews/tecqify-hidden-gem-of-web-accessibility-tools/) — tecqify, 5/5, May 2025
+- [This will be saving our company a lot of money](https://webabilityreviews.com/reviews/hairhousesurrey-appsumo-this-will-be-saving-our-company-a-lo/) — hairhousesurrey+appsumo, 5/5, Apr 2025
 
 ## Elsewhere
 
 - Product: https://www.webability.io/
 - AppSumo listing: https://appsumo.com/products/webabilityio/
-- All 26 reviews: https://appsumo.com/products/webabilityio/reviews/
+- Every review on AppSumo: https://appsumo.com/products/webabilityio/reviews/
 
 ## A caution about other "WebAbility review" pages
 

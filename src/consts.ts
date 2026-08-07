@@ -3,7 +3,7 @@
 
 export const SITE_TITLE = "WebAbility.io Reviews";
 export const SITE_DESCRIPTION =
-	"WebAbility.io reviews from verified AppSumo purchasers — 4.9 out of 5 across 26 ratings. Real feedback on the AI accessibility widget for ADA, WCAG, AODA and Section 508 compliance, including what reviewers say needs work.";
+	"Every verified WebAbility.io review from AppSumo — 4.96 out of 5, 27 reviews, all reproduced in full. Real feedback on the AI accessibility widget for ADA, WCAG, AODA and Section 508 compliance, including what reviewers say needs work.";
 
 /** Rating figures as published on the AppSumo listing. */
 export const APPSUMO_PRODUCT_URL = "https://appsumo.com/products/webabilityio/";
@@ -12,10 +12,10 @@ export const APPSUMO_REVIEWS_URL =
 export const PRODUCT_URL = "https://www.webability.io/";
 export const SITE_URL = "https://webabilityreviews.com";
 
-export const RATING_AVERAGE = 4.9;
-export const RATING_TOTAL = 26;
+export const RATING_AVERAGE = 4.96;
+export const RATING_TOTAL = 27;
 /** How many of those reviews are reproduced on this site. */
-export const REVIEWS_PUBLISHED = 8;
+export const REVIEWS_PUBLISHED = 27;
 
 /**
  * Keyword targets, one cluster per page.

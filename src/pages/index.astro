@@ -38,7 +38,7 @@ const reviewData: ReviewData[] = reviews.map((r) => ({
 const faqs = [
 	{
 		q: "Is WebAbility.io any good?",
-		a: `WebAbility.io holds ${RATING_AVERAGE} out of 5 across ${RATING_TOTAL} verified reviews on AppSumo — 25 five-star, one four-star, none below. Reviewers most consistently praise the support and the speed of setup. The most repeated criticism is that discovered fixes need to be applied manually and that this is not obvious on first use.`,
+		a: `WebAbility.io holds ${RATING_AVERAGE} out of 5 across ${RATING_TOTAL} verified reviews on AppSumo — 26 five-star, one four-star, none below. Reviewers most consistently praise the support and the speed of setup. The most repeated criticism is that discovered fixes need to be applied manually and that this is not obvious on first use.`,
 	},
 	{
 		q: "What do reviewers say is wrong with WebAbility.io?",
@@ -64,6 +64,9 @@ const structuredData = graph(
 	productSchema(reviewData),
 	faqSchema(faqs),
 );
+
+const NOTE =
+	"AppSumo's own listing header currently reads 4.9 across 26 reviews, while 27 individual reviews are live on the listing. We publish all 27 and show the average of those 27.";
 
 const themes = [
 	{
@@ -123,8 +126,10 @@ const themes = [
 				<p class="disclosure">
 					This site is run by the WebAbility team. Reviews are not written by us
 					— they are summarised from the {RATING_TOTAL} published on AppSumo, each
-					linked to its source. {REVIEWS_PUBLISHED} of the {RATING_TOTAL} are
-					covered here, including the one review that is not five stars.
+					linked to its source. All {RATING_TOTAL} are reproduced here — including
+					the one review that is not five stars, and every criticism in them.
+					<br />
+					<small>{NOTE}</small>
 				</p>
 			</section>
 
