@@ -1,8 +1,39 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import ReviewCard from "../components/ReviewCard.astro";
+import Stars from "../components/Stars.astro";
+import { getCollection } from "astro:content";
+import {
+	SITE_TITLE,
+	SITE_DESCRIPTION,
+	APPSUMO_PRODUCT_URL,
+	APPSUMO_REVIEWS_URL,
+	PRODUCT_URL,
+	RATING_AVERAGE,
+	RATING_TOTAL,
+	REVIEWS_PUBLISHED,
+} from "../consts";
+
+const reviews = (await getCollection("blog")).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+
+const themes = [
+	{
+		title: "Support is the most-cited reason people stay",
+		body: "Across the set, the founder replying directly comes up more often than any single feature. One reviewer went to the top tier on the strength of the walkthrough alone.",
+	},
+	{
+		title: "Setup is short — finishing the job is the part people ask about",
+		body: "Installs land in about ten minutes. The recurring stumble is not installation but applying the fixes the scan has already found.",
+	},
+	{
+		title: "The open request is scale",
+		body: "Bulk exports, large-site workflows, and template-level issues that repeat across many pages. That is the sharpest ask in the reviews.",
+	},
+];
 ---
 
 <!doctype html>
@@ -13,38 +44,195 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 	<body>
 		<Header />
 		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This
-				template serves as a lightweight, minimally-styled starting point for anyone looking to build
-				a personal website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to <a href="https://docs.astro.build/"
-					>read the docs
-				</a> or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out <a
-					href="https://github.com/Charca/astro-blog-template"
-					>astro-blog-template
-				</a> by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
+			<section class="hero">
+				<p class="eyebrow">Verified customer reviews</p>
+				<h1>What people actually say about WebAbility.io</h1>
+				<p class="lede">
+					WebAbility.io is an AI-powered web accessibility platform for ADA,
+					WCAG&nbsp;2.1/2.2, AODA and Section&nbsp;508 compliance. Below are
+					verified customer reviews, reproduced from its AppSumo listing with a
+					link back to each original.
+				</p>
+
+				<div class="rating-panel">
+					<div class="score">
+						<span class="number">{RATING_AVERAGE}</span>
+						<Stars rating={RATING_AVERAGE} label={`out of 5`} />
+						<span class="count">{RATING_TOTAL} verified reviews on AppSumo</span>
+					</div>
+					<div class="ctas">
+						<a class="btn primary" href={APPSUMO_PRODUCT_URL} rel="nofollow noopener" target="_blank">
+							See the deal on AppSumo
+						</a>
+						<a class="btn" href={PRODUCT_URL} rel="noopener" target="_blank">
+							Visit WebAbility.io
+						</a>
+					</div>
+				</div>
+
+				<p class="disclosure">
+					This site is run by the WebAbility team. Reviews are not written by us
+					— they are summarised from the {RATING_TOTAL} published on AppSumo, each
+					linked to its source. {REVIEWS_PUBLISHED} of the {RATING_TOTAL} are
+					covered here, including the one review that is not five stars.
+				</p>
+			</section>
+
+			<section class="themes">
+				<h2>What comes up repeatedly</h2>
+				<div class="theme-grid">
+					{
+						themes.map((t) => (
+							<div class="theme">
+								<h3>{t.title}</h3>
+								<p>{t.body}</p>
+							</div>
+						))
+					}
+				</div>
+			</section>
+
+			<section class="reviews">
+				<h2>The reviews</h2>
+				<div class="grid">
+					{
+						reviews.map((r) => (
+							<ReviewCard
+								href={`/reviews/${r.id}/`}
+								title={r.data.title}
+								reviewer={r.data.reviewer}
+								rating={r.data.rating}
+								pubDate={r.data.pubDate}
+								quote={r.data.quote}
+								description={r.data.description}
+								verified={r.data.verified}
+							/>
+						))
+					}
+				</div>
+				<p class="more">
+					<a href={APPSUMO_REVIEWS_URL} rel="nofollow noopener" target="_blank">
+						Read all {RATING_TOTAL} reviews on AppSumo →
+					</a>
+				</p>
+			</section>
 		</main>
 		<Footer />
+
+		<style>
+			main {
+				width: min(1100px, calc(100% - 2em));
+				margin: 0 auto;
+				padding: 3em 0;
+			}
+			.eyebrow {
+				margin: 0 0 0.5rem;
+				text-transform: uppercase;
+				letter-spacing: 0.08em;
+				font-size: 0.8rem;
+				font-weight: 700;
+				color: var(--accent);
+			}
+			h1 {
+				margin: 0 0 0.5rem;
+				font-size: clamp(2rem, 5vw, 3rem);
+				line-height: 1.15;
+			}
+			.lede {
+				max-width: 62ch;
+				font-size: 1.05rem;
+				color: rgb(var(--gray-dark));
+			}
+			.rating-panel {
+				display: flex;
+				flex-wrap: wrap;
+				align-items: center;
+				justify-content: space-between;
+				gap: 1.5rem;
+				margin: 2rem 0 1rem;
+				padding: 1.5rem;
+				border-radius: 12px;
+				background: var(--gray-gradient);
+				border: 1px solid rgb(var(--gray-light));
+			}
+			.score {
+				display: flex;
+				align-items: center;
+				flex-wrap: wrap;
+				gap: 0.75rem;
+			}
+			.number {
+				font-size: 2.5rem;
+				font-weight: 700;
+				line-height: 1;
+			}
+			.count {
+				width: 100%;
+				font-size: 0.9rem;
+				color: rgb(var(--gray));
+			}
+			.ctas {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.75rem;
+			}
+			.btn {
+				display: inline-block;
+				padding: 0.7rem 1.25rem;
+				border-radius: 8px;
+				border: 1px solid var(--accent);
+				color: var(--accent);
+				background: white;
+				font-weight: 700;
+				text-decoration: none;
+			}
+			.btn.primary {
+				background: var(--accent);
+				color: white;
+			}
+			.btn:hover {
+				box-shadow: var(--box-shadow);
+			}
+			.disclosure {
+				max-width: 70ch;
+				font-size: 0.85rem;
+				color: rgb(var(--gray));
+			}
+			section + section {
+				margin-top: 3.5rem;
+			}
+			h2 {
+				font-size: 1.6rem;
+				margin-bottom: 1.25rem;
+			}
+			.theme-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+				gap: 1.5rem;
+			}
+			.theme h3 {
+				margin: 0 0 0.4rem;
+				font-size: 1.05rem;
+			}
+			.theme p {
+				margin: 0;
+				font-size: 0.95rem;
+				color: rgb(var(--gray-dark));
+			}
+			.grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+				gap: 1.5rem;
+			}
+			.more {
+				margin-top: 2rem;
+				font-weight: 700;
+			}
+			@media (max-width: 720px) {
+				main {
+					padding: 2em 0;
+				}
+			}
+		</style>
 	</body>
 </html>

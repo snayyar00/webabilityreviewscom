@@ -1,0 +1,86 @@
+---
+import BaseHead from "../../components/BaseHead.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import ReviewCard from "../../components/ReviewCard.astro";
+import { getCollection } from "astro:content";
+import {
+	APPSUMO_REVIEWS_URL,
+	RATING_AVERAGE,
+	RATING_TOTAL,
+	REVIEWS_PUBLISHED,
+} from "../../consts";
+
+const reviews = (await getCollection("blog")).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+
+const title = "All WebAbility.io reviews";
+const description = `${REVIEWS_PUBLISHED} verified customer reviews of WebAbility.io, summarised from AppSumo, where it holds ${RATING_AVERAGE} out of 5 across ${RATING_TOTAL} reviews.`;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={title} description={description} />
+	</head>
+	<body>
+		<Header />
+		<main>
+			<h1>WebAbility.io reviews</h1>
+			<p class="lede">
+				{REVIEWS_PUBLISHED} of the {RATING_TOTAL} verified reviews on AppSumo,
+				newest first. Each links back to its original. The set includes the one
+				review that is not five stars.
+			</p>
+			<div class="grid">
+				{
+					reviews.map((r) => (
+						<ReviewCard
+							href={`/reviews/${r.id}/`}
+							title={r.data.title}
+							reviewer={r.data.reviewer}
+							rating={r.data.rating}
+							pubDate={r.data.pubDate}
+							quote={r.data.quote}
+							description={r.data.description}
+							verified={r.data.verified}
+						/>
+					))
+				}
+			</div>
+			<p class="more">
+				<a href={APPSUMO_REVIEWS_URL} rel="nofollow noopener" target="_blank">
+					Read all {RATING_TOTAL} reviews on AppSumo →
+				</a>
+			</p>
+		</main>
+		<Footer />
+
+		<style>
+			main {
+				width: min(1100px, calc(100% - 2em));
+				margin: 0 auto;
+				padding: 3em 0;
+			}
+			h1 {
+				font-size: clamp(1.9rem, 4vw, 2.6rem);
+				margin-bottom: 0.5rem;
+			}
+			.lede {
+				max-width: 62ch;
+				color: rgb(var(--gray-dark));
+				margin-bottom: 2rem;
+			}
+			.grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+				gap: 1.5rem;
+			}
+			.more {
+				margin-top: 2rem;
+				font-weight: 700;
+			}
+		</style>
+	</body>
+</html>

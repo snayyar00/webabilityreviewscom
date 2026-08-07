@@ -1,6 +1,6 @@
 {
 	"name": "webabilityreviewscom",
-	"description": "Build a personal website, blog, or portfolio with Astro.",
+	"description": "Verified customer reviews of WebAbility.io, sourced from AppSumo.",
 	"cloudflare": {
 		"label": "Astro Framework Starter",
 		"products": [

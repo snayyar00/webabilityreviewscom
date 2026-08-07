@@ -1,0 +1,193 @@
+---
+import type { CollectionEntry } from "astro:content";
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import FormattedDate from "../components/FormattedDate.astro";
+import Stars from "../components/Stars.astro";
+import { APPSUMO_PRODUCT_URL, PRODUCT_URL } from "../consts";
+
+type Props = CollectionEntry<"blog">["data"];
+
+const {
+	title,
+	description,
+	pubDate,
+	updatedDate,
+	heroImage,
+	reviewer,
+	rating,
+	sourceUrl,
+	source,
+	verified,
+} = Astro.props;
+---
+
+<html lang="en">
+	<head>
+		<BaseHead title={title} description={description} />
+	</head>
+
+	<body>
+		<Header />
+		<main>
+			<article>
+				{
+					heroImage && (
+						<div class="hero-image">
+							<img width={1020} height={510} src={heroImage} alt="" />
+						</div>
+					)
+				}
+				<div class="prose">
+					<div class="title">
+						<Stars rating={rating} label={`${rating} out of 5`} />
+						<h1>{title}</h1>
+						<p class="byline">
+							<span class="reviewer">{reviewer}</span>
+							{verified && <span class="badge">Verified purchaser</span>}
+							<span class="badge">{source}</span>
+						</p>
+						<p class="date">
+							<FormattedDate date={pubDate} />
+							{
+								updatedDate && (
+									<span class="last-updated-on">
+										{" · updated "}
+										<FormattedDate date={updatedDate} />
+									</span>
+								)
+							}
+						</p>
+						<hr />
+					</div>
+
+					<slot />
+
+					<aside class="source">
+						<p>
+							This is a summary with short excerpts. The review was written by
+							<strong>{reviewer}</strong> and published on {source}.
+						</p>
+						<a href={sourceUrl} rel="nofollow noopener" target="_blank">
+							Read the original on {source} →
+						</a>
+					</aside>
+
+					<div class="ctas">
+						<a
+							class="btn primary"
+							href={APPSUMO_PRODUCT_URL}
+							rel="nofollow noopener"
+							target="_blank">See the deal on AppSumo</a
+						>
+						<a class="btn" href={PRODUCT_URL} rel="noopener" target="_blank"
+							>Visit WebAbility.io</a
+						>
+						<a class="btn ghost" href="/reviews/">← All reviews</a>
+					</div>
+				</div>
+			</article>
+		</main>
+		<Footer />
+
+		<style>
+			main {
+				width: calc(100% - 2em);
+				max-width: 100%;
+				margin: 0;
+			}
+			.hero-image {
+				width: 100%;
+			}
+			.hero-image img {
+				display: block;
+				margin: 0 auto;
+				border-radius: 12px;
+				box-shadow: var(--box-shadow);
+			}
+			.prose {
+				width: 720px;
+				max-width: calc(100% - 2em);
+				margin: auto;
+				padding: 1em;
+				color: rgb(var(--gray-dark));
+			}
+			.title {
+				margin-bottom: 1em;
+				padding: 1em 0;
+				text-align: center;
+			}
+			.title h1 {
+				margin: 0.4em 0 0.5em 0;
+				line-height: 1.15;
+			}
+			.byline {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				flex-wrap: wrap;
+				gap: 0.5rem;
+				margin: 0 0 0.5em;
+				font-size: 0.9rem;
+			}
+			.reviewer {
+				font-weight: 700;
+				color: rgb(var(--black));
+			}
+			.badge {
+				padding: 0.15rem 0.6rem;
+				border-radius: 999px;
+				background: rgb(var(--gray-light));
+				font-size: 0.75rem;
+				color: rgb(var(--gray-dark));
+			}
+			.date {
+				margin-bottom: 0.5em;
+				color: rgb(var(--gray));
+				font-size: 0.9rem;
+			}
+			.last-updated-on {
+				font-style: italic;
+			}
+			.source {
+				margin-top: 2.5rem;
+				padding: 1.25rem;
+				border-left: 4px solid var(--accent);
+				border-radius: 8px;
+				background: var(--gray-gradient);
+				font-size: 0.95rem;
+			}
+			.source p {
+				margin: 0 0 0.5rem;
+			}
+			.ctas {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.75rem;
+				margin-top: 2rem;
+			}
+			.btn {
+				display: inline-block;
+				padding: 0.7rem 1.25rem;
+				border-radius: 8px;
+				border: 1px solid var(--accent);
+				color: var(--accent);
+				background: white;
+				font-weight: 700;
+				text-decoration: none;
+			}
+			.btn.primary {
+				background: var(--accent);
+				color: white;
+			}
+			.btn.ghost {
+				border-color: rgb(var(--gray-light));
+				color: rgb(var(--gray-dark));
+			}
+			.btn:hover {
+				box-shadow: var(--box-shadow);
+			}
+		</style>
+	</body>
+</html>

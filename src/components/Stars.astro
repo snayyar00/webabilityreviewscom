@@ -1,0 +1,52 @@
+---
+interface Props {
+	rating: number;
+	/** Shown after the stars, e.g. "4.9 out of 5". Omit for the icons alone. */
+	label?: string;
+}
+
+const { rating, label } = Astro.props;
+const rounded = Math.round(rating);
+const accessibleLabel = label ?? `${rating} out of 5`;
+---
+
+<span class="stars" role="img" aria-label={accessibleLabel}>
+	{
+		Array.from({ length: 5 }, (_, i) => (
+			<svg
+				class={i < rounded ? "on" : "off"}
+				viewBox="0 0 20 20"
+				width="18"
+				height="18"
+				aria-hidden="true"
+				focusable="false"
+			>
+				<path
+					fill="currentColor"
+					d="M10 1.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8L1.5 7.7l5.9-.9L10 1.5z"
+				/>
+			</svg>
+		))
+	}
+	{label && <span class="label">{label}</span>}
+</span>
+
+<style>
+	.stars {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.1rem;
+		line-height: 1;
+	}
+	.on {
+		color: #f5a623;
+	}
+	.off {
+		color: rgb(var(--gray-light));
+	}
+	.label {
+		margin-left: 0.5rem;
+		font-weight: 700;
+		color: rgb(var(--gray-dark));
+	}
+</style>

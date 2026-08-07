@@ -1,62 +1,154 @@
 ---
-import Layout from '../layouts/BlogPost.astro';
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import {
+	APPSUMO_PRODUCT_URL,
+	APPSUMO_REVIEWS_URL,
+	PRODUCT_URL,
+	RATING_AVERAGE,
+	RATING_TOTAL,
+	REVIEWS_PUBLISHED,
+} from "../consts";
+
+const title = "About this site";
+const description =
+	"Who runs webabilityreviews.com, where the reviews come from, and what WebAbility.io actually does.";
 ---
 
-<Layout
-	title="About Me"
-	description="Lorem ipsum dolor sit amet"
-	pubDate={new Date('August 08 2021')}
-	heroImage="/blog-placeholder-about.jpg"
->
-	<p>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-		labore et dolore magna aliqua. Vitae ultricies leo integer malesuada nunc vel risus commodo
-		viverra. Adipiscing enim eu turpis egestas pretium. Euismod elementum nisi quis eleifend quam
-		adipiscing. In hac habitasse platea dictumst vestibulum. Sagittis purus sit amet volutpat. Netus
-		et malesuada fames ac turpis egestas. Eget magna fermentum iaculis eu non diam phasellus
-		vestibulum lorem. Varius sit amet mattis vulputate enim. Habitasse platea dictumst quisque
-		sagittis. Integer quis auctor elit sed vulputate mi. Dictumst quisque sagittis purus sit amet.
-	</p>
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={title} description={description} />
+	</head>
+	<body>
+		<Header />
+		<main>
+			<h1>About this site</h1>
 
-	<p>
-		Morbi tristique senectus et netus. Id semper risus in hendrerit gravida rutrum quisque non
-		tellus. Habitasse platea dictumst quisque sagittis purus sit amet. Tellus molestie nunc non
-		blandit massa. Cursus vitae congue mauris rhoncus. Accumsan tortor posuere ac ut. Fringilla urna
-		porttitor rhoncus dolor. Elit ullamcorper dignissim cras tincidunt lobortis. In cursus turpis
-		massa tincidunt dui ut ornare lectus. Integer feugiat scelerisque varius morbi enim nunc.
-		Bibendum neque egestas congue quisque egestas diam. Cras ornare arcu dui vivamus arcu felis
-		bibendum. Dignissim suspendisse in est ante in nibh mauris. Sed tempus urna et pharetra pharetra
-		massa massa ultricies mi.
-	</p>
+			<div class="callout">
+				<p>
+					<strong>Disclosure.</strong> This site is published by the WebAbility
+					team. We did not write the reviews. Every review here was posted by a
+					verified AppSumo purchaser, and each page links back to the original so
+					you can check it.
+				</p>
+			</div>
 
-	<p>
-		Mollis nunc sed id semper risus in. Convallis a cras semper auctor neque. Diam sit amet nisl
-		suscipit. Lacus viverra vitae congue eu consequat ac felis donec. Egestas integer eget aliquet
-		nibh praesent tristique magna sit amet. Eget magna fermentum iaculis eu non diam. In vitae
-		turpis massa sed elementum. Tristique et egestas quis ipsum suspendisse ultrices. Eget lorem
-		dolor sed viverra ipsum. Vel turpis nunc eget lorem dolor sed viverra. Posuere ac ut consequat
-		semper viverra nam. Laoreet suspendisse interdum consectetur libero id faucibus. Diam phasellus
-		vestibulum lorem sed risus ultricies tristique. Rhoncus dolor purus non enim praesent elementum
-		facilisis. Ultrices tincidunt arcu non sodales neque. Tempus egestas sed sed risus pretium quam
-		vulputate. Viverra suspendisse potenti nullam ac tortor vitae purus faucibus ornare. Fringilla
-		urna porttitor rhoncus dolor purus non. Amet dictum sit amet justo donec enim.
-	</p>
+			<h2>Where the reviews come from</h2>
+			<p>
+				WebAbility.io holds <strong>{RATING_AVERAGE} out of 5</strong> across
+				<strong>{RATING_TOTAL} verified reviews</strong> on AppSumo. This site
+				reproduces <strong>{REVIEWS_PUBLISHED}</strong> of them as summaries with
+				short excerpts.
+			</p>
+			<p>
+				We include the criticism as well as the praise. That means the one review
+				in the set that is not five stars, the reviewer who found the widget was
+				not fully translated, the reviewer whose screen reader skipped words, and
+				the reviewer who could not tell that ~200 discovered fixes still needed to
+				be applied. Those are in here on purpose. A page that only carried the
+				good ones would not be worth reading.
+			</p>
+			<p>
+				<a href={APPSUMO_REVIEWS_URL} rel="nofollow noopener" target="_blank">
+					Read all {RATING_TOTAL} reviews on AppSumo →
+				</a>
+			</p>
 
-	<p>
-		Mattis ullamcorper velit sed ullamcorper morbi tincidunt. Tortor posuere ac ut consequat semper
-		viverra. Tellus mauris a diam maecenas sed enim ut sem viverra. Venenatis urna cursus eget nunc
-		scelerisque viverra mauris in. Arcu ac tortor dignissim convallis aenean et tortor at. Curabitur
-		gravida arcu ac tortor dignissim convallis aenean et tortor. Egestas tellus rutrum tellus
-		pellentesque eu. Fusce ut placerat orci nulla pellentesque dignissim enim sit amet. Ut enim
-		blandit volutpat maecenas volutpat blandit aliquam etiam. Id donec ultrices tincidunt arcu. Id
-		cursus metus aliquam eleifend mi.
-	</p>
+			<h2>What WebAbility.io is</h2>
+			<p>
+				WebAbility.io is a web accessibility platform. It scans a site for
+				barriers in content, navigation, forms and media, automatically corrects
+				the items that are safe to change — alt text, ARIA labels, contrast,
+				focus order — and routes the rest to human review.
+			</p>
+			<p>It is built against these standards:</p>
+			<ul>
+				<li>ADA and WCAG 2.1 / 2.2</li>
+				<li>Section 508 (US federal)</li>
+				<li>AODA (Ontario)</li>
+				<li>EN 301 549 (EU)</li>
+				<li>IS 5568 (Israel)</li>
+			</ul>
+			<p>
+				It installs on Shopify, WordPress, Wix and Webflow, and integrates with
+				GoHighLevel. Alongside the scanner there is a visitor-facing widget with
+				accessibility profiles, a screen reader and controls such as text sizing.
+			</p>
 
-	<p>
-		Tempus quam pellentesque nec nam aliquam sem. Risus at ultrices mi tempus imperdiet. Id porta
-		nibh venenatis cras sed felis eget velit. Ipsum a arcu cursus vitae. Facilisis magna etiam
-		tempor orci eu lobortis elementum. Tincidunt dui ut ornare lectus sit. Quisque non tellus orci
-		ac. Blandit libero volutpat sed cras. Nec tincidunt praesent semper feugiat nibh sed pulvinar
-		proin gravida. Egestas integer eget aliquet nibh praesent tristique magna.
-	</p>
-</Layout>
+			<h2>A note on how to read any review page</h2>
+			<p>
+				Reviews carry dates, and accessibility tooling moves. The two oldest
+				reviews here are from May 2025 and describe problems the later reviews do
+				not mention. That does not make them wrong — it makes them a snapshot.
+				Check the date on anything you read, here or anywhere else.
+			</p>
+			<p>
+				Be equally careful with third-party "review" sites that quote monthly
+				pricing tiers for this product. Those are usually affiliate pages written
+				without hands-on testing, and the pricing they list does not match the
+				actual listing.
+			</p>
+
+			<div class="ctas">
+				<a class="btn primary" href={APPSUMO_PRODUCT_URL} rel="nofollow noopener" target="_blank">
+					See the deal on AppSumo
+				</a>
+				<a class="btn" href={PRODUCT_URL} rel="noopener" target="_blank">
+					Visit WebAbility.io
+				</a>
+			</div>
+		</main>
+		<Footer />
+
+		<style>
+			main {
+				width: min(760px, calc(100% - 2em));
+				margin: 0 auto;
+				padding: 3em 0;
+			}
+			h1 {
+				font-size: clamp(1.9rem, 4vw, 2.6rem);
+				margin-bottom: 1rem;
+			}
+			h2 {
+				font-size: 1.4rem;
+				margin-top: 2.5rem;
+			}
+			.callout {
+				margin: 1.5rem 0;
+				padding: 1.25rem;
+				border-left: 4px solid var(--accent);
+				border-radius: 8px;
+				background: var(--gray-gradient);
+			}
+			.callout p {
+				margin: 0;
+			}
+			.ctas {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.75rem;
+				margin-top: 2.5rem;
+			}
+			.btn {
+				display: inline-block;
+				padding: 0.7rem 1.25rem;
+				border-radius: 8px;
+				border: 1px solid var(--accent);
+				color: var(--accent);
+				background: white;
+				font-weight: 700;
+				text-decoration: none;
+			}
+			.btn.primary {
+				background: var(--accent);
+				color: white;
+			}
+			.btn:hover {
+				box-shadow: var(--box-shadow);
+			}
+		</style>
+	</body>
+</html>
