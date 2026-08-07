@@ -1,0 +1,76 @@
+# Deploy to Cloudflare Workers on push to main.
+#
+# Why this exists: Workers Builds is NOT connected for this project. The worker
+# was previously published by someone running `wrangler deploy` by hand, which
+# meant pushing to main deployed nothing and the live site could silently drift
+# from the repo. It did: the site served the unmodified Astro starter template
+# for ~2.5 months after the initial import.
+#
+# Required repo secrets (Settings -> Secrets and variables -> Actions):
+#   CLOUDFLARE_API_TOKEN   - needs the "Edit Cloudflare Workers" template
+#   CLOUDFLARE_ACCOUNT_ID
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  # Manual re-deploy without an empty commit.
+  workflow_dispatch:
+
+# Never let two deploys race; the later push wins, but don't cancel a deploy
+# already in flight or the worker can be left mid-upload.
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      # Fail loudly if the starter template ever comes back, rather than
+      # shipping Lorem ipsum to a live domain again.
+      - name: Guard against template content
+        run: |
+          if grep -rilE 'lorem ipsum|astro blog|your name here' dist --include='*.html' --include='*.xml'; then
+            echo "::error::Astro starter template content found in build output"
+            exit 1
+          fi
+          echo "No template content in dist/"
+
+      - name: Deploy
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
+      # Cloudflare's edge caches HTML aggressively and will happily serve the
+      # previous build for a while. Verify the origin, which sits behind no
+      # CF cache, rather than the public hostname.
+      - name: Verify deploy
+        run: |
+          sleep 5
+          origin="https://webabilityreviewscom.dark-water-3495.workers.dev"
+          for path in / /reviews/ /about/ /for-agencies/ /manual-accessibility-audit/ /llms.txt /robots.txt; do
+            code=$(curl -s -o /dev/null -w '%{http_code}' "$origin$path")
+            echo "$code $path"
+            if [ "$code" != "200" ]; then
+              echo "::error::$path returned $code"
+              exit 1
+            fi
+          done
