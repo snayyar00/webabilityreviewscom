@@ -6,8 +6,15 @@ import Footer from "../components/Footer.astro";
 import FormattedDate from "../components/FormattedDate.astro";
 import Stars from "../components/Stars.astro";
 import { APPSUMO_PRODUCT_URL, PRODUCT_URL } from "../consts";
+import {
+	graph,
+	reviewSchema,
+	publisherSchema,
+	websiteSchema,
+	breadcrumbSchema,
+} from "../lib/schema";
 
-type Props = CollectionEntry<"blog">["data"];
+type Props = CollectionEntry<"blog">["data"] & { slug: string };
 
 const {
 	title,
@@ -20,12 +27,51 @@ const {
 	sourceUrl,
 	source,
 	verified,
+	quote,
+	slug,
 } = Astro.props;
+
+const structuredData = graph(
+	publisherSchema(),
+	websiteSchema(),
+	reviewSchema({
+		title,
+		description,
+		pubDate,
+		reviewer,
+		rating,
+		sourceUrl,
+		source,
+		quote,
+		slug,
+	}),
+	breadcrumbSchema([
+		{ name: "Home", path: "/" },
+		{ name: "Reviews", path: "/reviews/" },
+		{ name: title, path: `/reviews/${slug}/` },
+	]),
+);
+
+// Long review titles make poor <title> tags; keep them under control.
+const metaTitle = title.length > 62 ? `${reviewer}: ${title.slice(0, 58)}…` : title;
+const keywords = [
+	"webability review",
+	"webability.io review",
+	`webability review ${reviewer}`,
+	"webability appsumo review",
+	"accessibility widget review",
+];
 ---
 
 <html lang="en">
 	<head>
-		<BaseHead title={title} description={description} />
+		<BaseHead
+			title={metaTitle}
+			description={description}
+			image={heroImage}
+			keywords={keywords}
+			structuredData={structuredData}
+		/>
 	</head>
 
 	<body>

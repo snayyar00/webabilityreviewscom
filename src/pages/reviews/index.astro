@@ -6,13 +6,34 @@ import ReviewCard from "../../components/ReviewCard.astro";
 import { getCollection } from "astro:content";
 import {
 	APPSUMO_REVIEWS_URL,
+	KEYWORDS,
 	RATING_AVERAGE,
 	RATING_TOTAL,
 	REVIEWS_PUBLISHED,
 } from "../../consts";
+import {
+	graph,
+	productSchema,
+	publisherSchema,
+	websiteSchema,
+	breadcrumbSchema,
+	type ReviewData,
+} from "../../lib/schema";
 
 const reviews = (await getCollection("blog")).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+
+const reviewData: ReviewData[] = reviews.map((r) => ({ ...r.data, slug: r.id }));
+
+const structuredData = graph(
+	publisherSchema(),
+	websiteSchema(),
+	productSchema(reviewData),
+	breadcrumbSchema([
+		{ name: "Home", path: "/" },
+		{ name: "Reviews", path: "/reviews/" },
+	]),
 );
 
 const title = "All WebAbility.io reviews";
@@ -22,7 +43,12 @@ const description = `${REVIEWS_PUBLISHED} verified customer reviews of WebAbilit
 <!doctype html>
 <html lang="en">
 	<head>
-		<BaseHead title={title} description={description} />
+		<BaseHead
+			title={title}
+			description={description}
+			keywords={KEYWORDS.reviews}
+			structuredData={structuredData}
+		/>
 	</head>
 	<body>
 		<Header />

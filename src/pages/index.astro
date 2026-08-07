@@ -8,6 +8,7 @@ import { getCollection } from "astro:content";
 import {
 	SITE_TITLE,
 	SITE_DESCRIPTION,
+	KEYWORDS,
 	APPSUMO_PRODUCT_URL,
 	APPSUMO_REVIEWS_URL,
 	PRODUCT_URL,
@@ -16,8 +17,52 @@ import {
 	REVIEWS_PUBLISHED,
 } from "../consts";
 
+import {
+	graph,
+	productSchema,
+	publisherSchema,
+	websiteSchema,
+	faqSchema,
+	type ReviewData,
+} from "../lib/schema";
+
 const reviews = (await getCollection("blog")).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+
+const reviewData: ReviewData[] = reviews.map((r) => ({
+	...r.data,
+	slug: r.id,
+}));
+
+const faqs = [
+	{
+		q: "Is WebAbility.io any good?",
+		a: `WebAbility.io holds ${RATING_AVERAGE} out of 5 across ${RATING_TOTAL} verified reviews on AppSumo — 25 five-star, one four-star, none below. Reviewers most consistently praise the support and the speed of setup. The most repeated criticism is that discovered fixes need to be applied manually and that this is not obvious on first use.`,
+	},
+	{
+		q: "What do reviewers say is wrong with WebAbility.io?",
+		a: "Three things recur: fixes the scan finds still need applying and the interface does not make that obvious; there is no bulk issue export and large-site workflows are thin, including template-level issues that repeat across pages; and a May 2025 reviewer reported the widget was not fully translated and the screen reader skipped words.",
+	},
+	{
+		q: "Is the WebAbility.io AppSumo deal worth it?",
+		a: "Reviewers who bought it say yes, including one with over 500 AppSumo purchases who ranks it at the top of them. Tiers run $59 to $295 as a one-time payment, refundable up to 60 days. One consultant recovered the $295 top tier on a single client sale.",
+	},
+	{
+		q: "Can agencies use WebAbility.io for client sites?",
+		a: "Yes. A top-tier reviewer confirmed white-label, multiple widget placements and a silent background fix mode. Licences cover multiple sites and codes stack up to 5.",
+	},
+	{
+		q: "Who publishes webabilityreviews.com?",
+		a: "The WebAbility team (TechyWeb Solutions Inc.). The reviews themselves were written by verified AppSumo purchasers, not by us, and every one links back to its original so it can be checked.",
+	},
+];
+
+const structuredData = graph(
+	publisherSchema(),
+	websiteSchema(),
+	productSchema(reviewData),
+	faqSchema(faqs),
 );
 
 const themes = [
@@ -39,14 +84,19 @@ const themes = [
 <!doctype html>
 <html lang="en">
 	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<BaseHead
+			title={SITE_TITLE}
+			description={SITE_DESCRIPTION}
+			keywords={KEYWORDS.home}
+			structuredData={structuredData}
+		/>
 	</head>
 	<body>
 		<Header />
 		<main>
 			<section class="hero">
 				<p class="eyebrow">Verified customer reviews</p>
-				<h1>What people actually say about WebAbility.io</h1>
+				<h1>WebAbility.io reviews — what verified buyers actually say</h1>
 				<p class="lede">
 					WebAbility.io is an AI-powered web accessibility platform for ADA,
 					WCAG&nbsp;2.1/2.2, AODA and Section&nbsp;508 compliance. Below are
@@ -115,6 +165,40 @@ const themes = [
 						Read all {RATING_TOTAL} reviews on AppSumo →
 					</a>
 				</p>
+			</section>
+
+			<section class="paths">
+				<h2>Reading this for a specific reason?</h2>
+				<div class="path-grid">
+					<a class="path" href="/for-agencies/">
+						<h3>You run an agency →</h3>
+						<p>
+							White-label, reselling to clients, multiple sites per licence, and
+							what agency reviewers say is still missing.
+						</p>
+					</a>
+					<a class="path" href="/manual-accessibility-audit/">
+						<h3>You need a manual audit →</h3>
+						<p>
+							What an expert WCAG audit catches that no automated scan can, and
+							how to tell which one your situation needs.
+						</p>
+					</a>
+				</div>
+			</section>
+
+			<section class="faq-section">
+				<h2>Questions people ask about WebAbility.io</h2>
+				<dl class="faq">
+					{
+						faqs.map((f) => (
+							<div class="qa">
+								<dt>{f.q}</dt>
+								<dd>{f.a}</dd>
+							</div>
+						))
+					}
+				</dl>
 			</section>
 		</main>
 		<Footer />
@@ -227,6 +311,49 @@ const themes = [
 			.more {
 				margin-top: 2rem;
 				font-weight: 700;
+			}
+			.path-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+				gap: 1.5rem;
+			}
+			.path {
+				display: block;
+				padding: 1.5rem;
+				border: 1px solid rgb(var(--gray-light));
+				border-radius: 12px;
+				text-decoration: none;
+				color: inherit;
+				transition: box-shadow 0.2s ease, transform 0.2s ease;
+			}
+			.path:hover {
+				box-shadow: var(--box-shadow);
+				transform: translateY(-2px);
+			}
+			.path h3 {
+				margin: 0 0 0.4rem;
+				font-size: 1.1rem;
+				color: var(--accent);
+			}
+			.path p {
+				margin: 0;
+				font-size: 0.95rem;
+				color: rgb(var(--gray-dark));
+			}
+			.faq {
+				margin: 0;
+				max-width: 75ch;
+			}
+			.faq .qa + .qa {
+				margin-top: 1.25rem;
+			}
+			.faq dt {
+				font-weight: 700;
+				color: rgb(var(--black));
+			}
+			.faq dd {
+				margin: 0.35rem 0 0;
+				color: rgb(var(--gray-dark));
 			}
 			@media (max-width: 720px) {
 				main {

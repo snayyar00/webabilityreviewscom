@@ -6,20 +6,41 @@ import {
 	APPSUMO_PRODUCT_URL,
 	APPSUMO_REVIEWS_URL,
 	PRODUCT_URL,
+	KEYWORDS,
 	RATING_AVERAGE,
 	RATING_TOTAL,
 	REVIEWS_PUBLISHED,
 } from "../consts";
+import {
+	graph,
+	publisherSchema,
+	websiteSchema,
+	breadcrumbSchema,
+} from "../lib/schema";
 
-const title = "About this site";
+const structuredData = graph(
+	publisherSchema(),
+	websiteSchema(),
+	breadcrumbSchema([
+		{ name: "Home", path: "/" },
+		{ name: "About", path: "/about/" },
+	]),
+);
+
+const title = "Is WebAbility.io legit? Who publishes this site";
 const description =
-	"Who runs webabilityreviews.com, where the reviews come from, and what WebAbility.io actually does.";
+	"Who runs webabilityreviews.com, where the WebAbility.io reviews come from, and what the platform actually does. Published by the WebAbility team; reviews written by verified AppSumo purchasers.";
 ---
 
 <!doctype html>
 <html lang="en">
 	<head>
-		<BaseHead title={title} description={description} />
+		<BaseHead
+			title={title}
+			description={description}
+			keywords={KEYWORDS.about}
+			structuredData={structuredData}
+		/>
 	</head>
 	<body>
 		<Header />

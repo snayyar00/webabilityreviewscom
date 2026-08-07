@@ -1,0 +1,366 @@
+---
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { APPSUMO_PRODUCT_URL, PRODUCT_URL } from "../consts";
+import {
+	graph,
+	publisherSchema,
+	websiteSchema,
+	breadcrumbSchema,
+	faqSchema,
+} from "../lib/schema";
+
+const title =
+	"Manual accessibility audit vs automated testing — what each one catches";
+const description =
+	"What an expert manual WCAG audit finds that an automated accessibility test cannot: meaningful alt text, logical focus order, useful error messages, real screen reader behaviour. When you need a human audit, and what the deliverable contains.";
+
+const keywords = [
+	"manual accessibility audit",
+	"manual wcag audit",
+	"expert accessibility audit",
+	"website accessibility audit",
+	"wcag 2.2 aa audit",
+	"accessibility conformance report",
+	"vpat accessibility report",
+	"section 508 audit",
+	"manual vs automated accessibility testing",
+	"accessibility remediation report",
+];
+
+const faqs = [
+	{
+		q: "What is a manual accessibility audit?",
+		a: "A human expert works through a site against the WCAG success criteria using a keyboard and a screen reader, judging things a scanner cannot evaluate — whether alt text is meaningful, whether focus order is logical, whether an error message actually tells the user how to fix the problem. The output is a report listing each failure, the criterion it breaches, its severity, and how to remediate it.",
+	},
+	{
+		q: "Why is automated accessibility testing not enough on its own?",
+		a: "Automated tools reliably detect machine-checkable failures such as a missing alt attribute, an unlabelled form field, or insufficient colour contrast. They cannot judge quality or intent. A scanner sees that an image has alt text; only a person can tell whether that alt text describes the image. A large share of WCAG success criteria require human judgement, so a clean automated scan is not the same as conformance.",
+	},
+	{
+		q: "What does an automated scan catch reliably?",
+		a: "Missing alt attributes, missing form labels, colour contrast below threshold, missing document language, duplicate IDs, empty links and buttons, missing table headers, and ARIA attributes that are invalid or misapplied. This is real work and it is the majority of raw issue count on most sites — it is simply not all of conformance.",
+	},
+	{
+		q: "When do I need a manual audit rather than a scan?",
+		a: "When you have a legal deadline or a procurement requirement, when you need an Accessibility Conformance Report or VPAT, when you are responding to a demand letter or complaint, or when your site has custom interactive components — a bespoke date picker, a multi-step form, a modal flow, a data grid — that a scanner cannot meaningfully evaluate.",
+	},
+	{
+		q: "What standard should the audit be against?",
+		a: "WCAG 2.2 Level AA is the common target. Section 508 references WCAG 2.0 AA for US federal procurement; the DOJ's ADA Title II rule sets WCAG 2.1 AA for state and local government entities; EN 301 549 governs the EU. An audit should state which version and level it tested against.",
+	},
+	{
+		q: "Do the reviews on this site cover the manual audit service?",
+		a: "No. The AppSumo reviews collected here are about the self-serve platform — the scanner, the automatic fixes and the widget. None of them evaluate an expert manual audit engagement, so this page makes no claims about that service on the strength of the reviews.",
+	},
+];
+
+const structuredData = graph(
+	publisherSchema(),
+	websiteSchema(),
+	breadcrumbSchema([
+		{ name: "Home", path: "/" },
+		{ name: "Manual accessibility audit", path: "/manual-accessibility-audit/" },
+	]),
+	faqSchema(faqs),
+);
+
+const split = [
+	{
+		criterion: "Images have alt text",
+		auto: "Detects a missing alt attribute",
+		manual: "Judges whether the alt text describes the image, and whether a decorative image is correctly hidden",
+	},
+	{
+		criterion: "Colour contrast",
+		auto: "Measures the ratio and flags failures",
+		manual: "Catches text over gradients, video and background images, and hover or focus states the scanner never rendered",
+	},
+	{
+		criterion: "Form fields are labelled",
+		auto: "Detects an input with no accessible name",
+		manual: "Judges whether the label is understandable, and whether the error message says how to fix the problem",
+	},
+	{
+		criterion: "Focus order",
+		auto: "Detects positive tabindex values",
+		manual: "Follows the actual tab path and decides whether the sequence is logical and nothing is trapped",
+	},
+	{
+		criterion: "Headings",
+		auto: "Detects skipped levels and empty headings",
+		manual: "Judges whether headings describe the content beneath them",
+	},
+	{
+		criterion: "Link purpose",
+		auto: "Detects an empty link",
+		manual: "Decides whether the link text makes sense out of context — the reason a page of “read more” links fails",
+	},
+	{
+		criterion: "Custom widgets",
+		auto: "Validates ARIA roles and attributes",
+		manual: "Operates the component with a keyboard and a screen reader to see whether it is genuinely usable",
+	},
+];
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead
+			title={title}
+			description={description}
+			keywords={keywords}
+			structuredData={structuredData}
+		/>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<p class="eyebrow">Manual audit vs automated testing</p>
+			<h1>What a manual accessibility audit catches that a scanner cannot</h1>
+			<p class="lede">
+				A clean automated scan is not the same as WCAG conformance. Automated
+				testing is very good at machine-checkable failures and structurally
+				unable to judge quality or intent. This page sets out where the line
+				falls, so you can tell which one your situation actually needs.
+			</p>
+
+			<div class="callout">
+				<p>
+					<strong>Scope note.</strong> The
+					<a href="/reviews/">reviews collected on this site</a> are about
+					WebAbility.io's self-serve platform — the scanner, the automatic fixes
+					and the widget. None of them evaluate an expert manual audit
+					engagement, so nothing on this page claims review evidence for one.
+				</p>
+			</div>
+
+			<h2>The same criterion, two different jobs</h2>
+			<div class="table-wrap">
+				<table>
+					<thead>
+						<tr>
+							<th scope="col">WCAG area</th>
+							<th scope="col">What an automated scan does</th>
+							<th scope="col">What a human has to do</th>
+						</tr>
+					</thead>
+					<tbody>
+						{
+							split.map((row) => (
+								<tr>
+									<th scope="row">{row.criterion}</th>
+									<td>{row.auto}</td>
+									<td>{row.manual}</td>
+								</tr>
+							))
+						}
+					</tbody>
+				</table>
+			</div>
+			<p class="note">
+				The pattern is consistent: the scanner answers <em>does this attribute
+				exist</em>, a person answers <em>does it do its job</em>. Both matter.
+				Neither replaces the other.
+			</p>
+
+			<h2>When you need the human pass</h2>
+			<ul>
+				<li>
+					<strong>A legal deadline or a demand letter.</strong> A scan report is
+					not a conformance claim and should never be presented as one.
+				</li>
+				<li>
+					<strong>Procurement.</strong> Buyers — particularly public sector and
+					education — ask for an Accessibility Conformance Report or VPAT, which
+					requires per-criterion findings a human signed off.
+				</li>
+				<li>
+					<strong>Custom interactive components.</strong> A bespoke date picker,
+					a multi-step form, a modal flow, a data grid. Automated tools validate
+					the ARIA and still miss whether the thing is operable.
+				</li>
+				<li>
+					<strong>Content-heavy sites.</strong> Alt text quality, heading sense
+					and link text are judgement calls at every instance.
+				</li>
+			</ul>
+
+			<h2>What the deliverable should contain</h2>
+			<p>Any audit worth paying for should give you, at minimum:</p>
+			<ul>
+				<li>The standard and level tested against, stated explicitly (for example WCAG 2.2 Level AA)</li>
+				<li>The pages, flows, browsers and assistive technology in scope</li>
+				<li>Each finding mapped to the specific success criterion it breaches</li>
+				<li>Severity, so the list is a work queue and not an undifferentiated dump</li>
+				<li>Remediation guidance per finding, specific enough for a developer to act on</li>
+				<li>Enough reproduction detail to verify the fix afterwards</li>
+			</ul>
+			<p>
+				If a report gives you a score and a issue count with no criterion
+				mapping and no remediation steps, it is a scan with a cover page.
+			</p>
+
+			<h2>The practical sequence</h2>
+			<ol>
+				<li>
+					<strong>Scan first.</strong> Clear the machine-checkable failures in
+					bulk — they are usually the largest raw count and the cheapest to fix.
+					This is what the platform in these reviews is for.
+				</li>
+				<li>
+					<strong>Then audit.</strong> Put a human on what is left, where the
+					judgement calls and the legal exposure live.
+				</li>
+				<li>
+					<strong>Then monitor.</strong> Accessibility regresses with every
+					deploy. One reviewer's phrase for it, quoting the founder, is that this
+					is not a set-it-and-forget-it project.
+				</li>
+			</ol>
+
+			<h2>Common questions</h2>
+			<dl class="faq">
+				{
+					faqs.map((f) => (
+						<div class="qa">
+							<dt>{f.q}</dt>
+							<dd>{f.a}</dd>
+						</div>
+					))
+				}
+			</dl>
+
+			<div class="ctas">
+				<a class="btn primary" href={PRODUCT_URL} rel="noopener" target="_blank"
+					>Ask WebAbility.io about an audit</a
+				>
+				<a
+					class="btn"
+					href={APPSUMO_PRODUCT_URL}
+					rel="nofollow noopener"
+					target="_blank">See the platform deal</a
+				>
+				<a class="btn ghost" href="/reviews/">Read the reviews</a>
+			</div>
+		</main>
+		<Footer />
+
+		<style>
+			main {
+				width: min(820px, calc(100% - 2em));
+				margin: 0 auto;
+				padding: 3em 0;
+			}
+			.eyebrow {
+				margin: 0 0 0.5rem;
+				text-transform: uppercase;
+				letter-spacing: 0.08em;
+				font-size: 0.8rem;
+				font-weight: 700;
+				color: var(--accent);
+			}
+			h1 {
+				margin: 0 0 0.75rem;
+				font-size: clamp(1.9rem, 4.5vw, 2.7rem);
+				line-height: 1.15;
+			}
+			h2 {
+				font-size: 1.45rem;
+				margin-top: 2.75rem;
+			}
+			.lede {
+				font-size: 1.05rem;
+				color: rgb(var(--gray-dark));
+			}
+			.callout {
+				margin: 1.5rem 0;
+				padding: 1.25rem;
+				border-left: 4px solid var(--accent);
+				border-radius: 8px;
+				background: var(--gray-gradient);
+				font-size: 0.95rem;
+			}
+			.callout p {
+				margin: 0;
+			}
+			.table-wrap {
+				overflow-x: auto;
+				margin-top: 1.25rem;
+			}
+			table {
+				width: 100%;
+				border-collapse: collapse;
+				font-size: 0.92rem;
+				min-width: 560px;
+			}
+			th,
+			td {
+				text-align: left;
+				vertical-align: top;
+				padding: 0.7rem 0.8rem;
+				border-bottom: 1px solid rgb(var(--gray-light));
+			}
+			thead th {
+				background: var(--gray-gradient);
+				font-size: 0.85rem;
+			}
+			tbody th {
+				font-weight: 700;
+				color: rgb(var(--black));
+				white-space: nowrap;
+			}
+			td {
+				color: rgb(var(--gray-dark));
+			}
+			.note {
+				margin-top: 1rem;
+				font-size: 0.95rem;
+				color: rgb(var(--gray-dark));
+			}
+			.faq {
+				margin: 1.25rem 0 0;
+			}
+			.faq .qa + .qa {
+				margin-top: 1.25rem;
+			}
+			.faq dt {
+				font-weight: 700;
+				color: rgb(var(--black));
+			}
+			.faq dd {
+				margin: 0.35rem 0 0;
+				color: rgb(var(--gray-dark));
+			}
+			.ctas {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.75rem;
+				margin-top: 2.5rem;
+			}
+			.btn {
+				display: inline-block;
+				padding: 0.7rem 1.25rem;
+				border-radius: 8px;
+				border: 1px solid var(--accent);
+				color: var(--accent);
+				background: white;
+				font-weight: 700;
+				text-decoration: none;
+			}
+			.btn.primary {
+				background: var(--accent);
+				color: white;
+			}
+			.btn.ghost {
+				border-color: rgb(var(--gray-light));
+				color: rgb(var(--gray-dark));
+			}
+			.btn:hover {
+				box-shadow: var(--box-shadow);
+			}
+		</style>
+	</body>
+</html>

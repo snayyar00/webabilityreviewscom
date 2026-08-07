@@ -1,0 +1,363 @@
+---
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import Stars from "../components/Stars.astro";
+import {
+	APPSUMO_PRODUCT_URL,
+	APPSUMO_REVIEWS_URL,
+	PRODUCT_URL,
+	KEYWORDS,
+	RATING_AVERAGE,
+	RATING_TOTAL,
+} from "../consts";
+import {
+	graph,
+	publisherSchema,
+	websiteSchema,
+	breadcrumbSchema,
+	faqSchema,
+} from "../lib/schema";
+
+const title =
+	"White-label accessibility for agencies — what WebAbility.io reviewers report";
+const description =
+	"Web design and AI agencies on reselling ADA and WCAG compliance with WebAbility.io: white-label confirmed, multiple sites per licence, setup under 10 minutes. Drawn from verified AppSumo reviews.";
+
+const faqs = [
+	{
+		q: "Is WebAbility.io white-label for agencies?",
+		a: "Yes. A verified AppSumo reviewer who bought the top tier confirmed white-label, along with multiple widget placements and a silent background fix mode.",
+	},
+	{
+		q: "Can an agency resell WebAbility.io to clients?",
+		a: "Reviewers do. One consultant bought the $295 tier and charged a single client $750 for three years of ADA compliance, covering the whole lifetime deal on the first sale with licence slots still spare.",
+	},
+	{
+		q: "How many client sites does one licence cover?",
+		a: "The AppSumo tiers cover 2, 4 and 6 websites for tiers 1 to 3, with higher tiers above that. Codes stack up to 5. A licence slot covers a root domain and its subdomains.",
+	},
+	{
+		q: "How long does setup take on a client site?",
+		a: "Reviewers consistently report under 10 minutes, including on WordPress. It installs on Shopify, WordPress, Wix and Webflow, and integrates with GoHighLevel.",
+	},
+	{
+		q: "What do agency reviewers say is still missing?",
+		a: "Bulk issue exports, better workflows for large sites, and improved handling of template-level issues that repeat across many pages. Reviewers also flag that discovered fixes need to be applied, which is not obvious on first use.",
+	},
+];
+
+const structuredData = graph(
+	publisherSchema(),
+	websiteSchema(),
+	breadcrumbSchema([
+		{ name: "Home", path: "/" },
+		{ name: "For agencies", path: "/for-agencies/" },
+	]),
+	faqSchema(faqs),
+);
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead
+			title={title}
+			description={description}
+			keywords={KEYWORDS.agencies}
+			structuredData={structuredData}
+		/>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<p class="eyebrow">For web design, dev and AI agencies</p>
+			<h1>White-label accessibility compliance you can resell</h1>
+			<p class="lede">
+				If you build or maintain sites for clients, accessibility is a line item
+				you are probably already being asked about. This page collects what
+				agency-side reviewers actually report about running WebAbility.io across
+				a client portfolio — including what they say is still missing.
+			</p>
+
+			<div class="callout">
+				<p>
+					<strong>Disclosure.</strong> This site is published by the WebAbility
+					team. Everything on this page is drawn from reviews written by verified
+					AppSumo purchasers, not by us.
+					<a href={APPSUMO_REVIEWS_URL} rel="nofollow noopener" target="_blank"
+						>Check them on AppSumo</a
+					>.
+				</p>
+			</div>
+
+			<h2>The review agencies usually want to read first</h2>
+			<blockquote class="feature">
+				<Stars rating={5} label="5 out of 5" />
+				<p class="q">
+					“One client paid for the entire LTD and I haven't even started scaling
+					yet”
+				</p>
+				<p class="body">
+					A consultant who leases websites and runs SEO retainers bought the top
+					tier at <strong>$295</strong> and resold three years of ADA compliance
+					to one client for <strong>$750</strong> — covering the lifetime deal on
+					the first sale, with licence slots still spare. They call the setup
+					genuinely agency-friendly: under 10 minutes, multiple widget
+					placements, a silent background fix mode, and white-label confirmed.
+				</p>
+				<footer>
+					<strong>Dabella</strong> · verified AppSumo purchaser · Apr 2026 ·
+					<a
+						href="/reviews/dabella-one-client-paid-for-the-ltd/"
+						>read the full review</a
+					>
+				</footer>
+			</blockquote>
+
+			<h2>What agency reviewers report</h2>
+			<div class="cards">
+				<div class="card">
+					<h3>White-label, confirmed</h3>
+					<p>
+						Reported by a top-tier buyer, alongside multiple widget placements
+						and a silent background fix mode for clients who do not want a
+						visible overlay.
+					</p>
+				</div>
+				<div class="card">
+					<h3>Multiple sites on one licence</h3>
+					<p>
+						Tiers cover 2, 4 and 6 websites at $59, $118 and $177, with higher
+						tiers above that, and codes stack up to 5. One slot covers a root
+						domain and its subdomains.
+					</p>
+				</div>
+				<div class="card">
+					<h3>Setup measured in minutes</h3>
+					<p>
+						Under 10 minutes is the figure reviewers repeat, including on
+						WordPress. That matters when the work is ten client sites, not one.
+					</p>
+				</div>
+				<div class="card">
+					<h3>Audits that prioritise</h3>
+					<p>
+						An agency reviewer managing several sites valued that issues are
+						explained and ranked rather than only flagged — a work queue instead
+						of a report — and called real-time monitoring a game changer.
+					</p>
+				</div>
+			</div>
+
+			<h2>If you build client sites with AI tools</h2>
+			<p>
+				Sites assembled quickly — with AI page builders, generated components, or
+				templated blocks — tend to fail accessibility in a specific way: the same
+				defect repeats across every page that shares the component. Generated
+				markup is consistent, so its mistakes are consistent too.
+			</p>
+			<p>
+				That is the case where the automated pass earns its place, and it is also
+				exactly where reviewers say the current gap sits. The most substantive
+				feature request in the whole review set is better handling of
+				template-level issues that appear across many pages. Read
+				<a href="/reviews/davenelson-must-have/">davenelson's review</a> before you
+				commit a large templated portfolio to it — he makes the case for automation
+				and names that limitation in the same breath.
+			</p>
+
+			<h2>What is not solved yet</h2>
+			<p>
+				Publishing only the upside would make this page useless to you. From the
+				reviews:
+			</p>
+			<ul>
+				<li>
+					<strong>Fixes need applying, and that is not obvious.</strong> One
+					reviewer had roughly 200 discovered auto-fixes sitting unapplied without
+					realising it. Budget for the onboarding step on every client site.
+				</li>
+				<li>
+					<strong>No bulk issue export.</strong> Requested by a long-term
+					reviewer, not yet reported as shipped.
+				</li>
+				<li>
+					<strong>Large-site workflows are thin</strong>, including the
+					template-level repetition above.
+				</li>
+				<li>
+					<strong>Localisation and screen reader gaps</strong> were reported in
+					May 2025. Later reviews do not mention them, but nothing here confirms
+					they are closed — check before you promise a non-English client.
+				</li>
+			</ul>
+
+			<h2>Common questions</h2>
+			<dl class="faq">
+				{
+					faqs.map((f) => (
+						<div class="qa">
+							<dt>{f.q}</dt>
+							<dd>{f.a}</dd>
+						</div>
+					))
+				}
+			</dl>
+
+			<div class="rating-strip">
+				<Stars rating={RATING_AVERAGE} label={`${RATING_AVERAGE} out of 5`} />
+				<span>{RATING_TOTAL} verified reviews on AppSumo</span>
+			</div>
+
+			<div class="ctas">
+				<a
+					class="btn primary"
+					href={APPSUMO_PRODUCT_URL}
+					rel="nofollow noopener"
+					target="_blank">See the deal on AppSumo</a
+				>
+				<a class="btn" href={PRODUCT_URL} rel="noopener" target="_blank"
+					>Visit WebAbility.io</a
+				>
+				<a class="btn ghost" href="/reviews/">All reviews</a>
+			</div>
+		</main>
+		<Footer />
+
+		<style>
+			main {
+				width: min(820px, calc(100% - 2em));
+				margin: 0 auto;
+				padding: 3em 0;
+			}
+			.eyebrow {
+				margin: 0 0 0.5rem;
+				text-transform: uppercase;
+				letter-spacing: 0.08em;
+				font-size: 0.8rem;
+				font-weight: 700;
+				color: var(--accent);
+			}
+			h1 {
+				margin: 0 0 0.75rem;
+				font-size: clamp(1.9rem, 4.5vw, 2.7rem);
+				line-height: 1.15;
+			}
+			h2 {
+				font-size: 1.45rem;
+				margin-top: 2.75rem;
+			}
+			h3 {
+				margin: 0 0 0.4rem;
+				font-size: 1.05rem;
+			}
+			.lede {
+				font-size: 1.05rem;
+				color: rgb(var(--gray-dark));
+			}
+			.callout {
+				margin: 1.5rem 0;
+				padding: 1.25rem;
+				border-left: 4px solid var(--accent);
+				border-radius: 8px;
+				background: var(--gray-gradient);
+				font-size: 0.95rem;
+			}
+			.callout p {
+				margin: 0;
+			}
+			blockquote.feature {
+				margin: 1.25rem 0 0;
+				padding: 1.5rem;
+				border: 1px solid rgb(var(--gray-light));
+				border-radius: 12px;
+				background: white;
+			}
+			blockquote.feature .q {
+				margin: 0.6rem 0 0.8rem;
+				font-size: 1.25rem;
+				font-weight: 700;
+				line-height: 1.3;
+			}
+			blockquote.feature .body {
+				margin: 0 0 1rem;
+				color: rgb(var(--gray-dark));
+			}
+			blockquote.feature footer {
+				font-size: 0.85rem;
+				color: rgb(var(--gray));
+			}
+			.cards {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+				gap: 1.25rem;
+				margin-top: 1.25rem;
+			}
+			.card {
+				padding: 1.25rem;
+				border: 1px solid rgb(var(--gray-light));
+				border-radius: 12px;
+			}
+			.card p {
+				margin: 0;
+				font-size: 0.95rem;
+				color: rgb(var(--gray-dark));
+			}
+			.faq {
+				margin: 1.25rem 0 0;
+			}
+			.faq .qa + .qa {
+				margin-top: 1.25rem;
+			}
+			.faq dt {
+				font-weight: 700;
+				color: rgb(var(--black));
+			}
+			.faq dd {
+				margin: 0.35rem 0 0;
+				color: rgb(var(--gray-dark));
+			}
+			.rating-strip {
+				display: flex;
+				align-items: center;
+				gap: 0.75rem;
+				flex-wrap: wrap;
+				margin-top: 2.75rem;
+				padding: 1rem 1.25rem;
+				border-radius: 12px;
+				background: var(--gray-gradient);
+				border: 1px solid rgb(var(--gray-light));
+				font-size: 0.95rem;
+				color: rgb(var(--gray-dark));
+			}
+			.ctas {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.75rem;
+				margin-top: 1.5rem;
+			}
+			.btn {
+				display: inline-block;
+				padding: 0.7rem 1.25rem;
+				border-radius: 8px;
+				border: 1px solid var(--accent);
+				color: var(--accent);
+				background: white;
+				font-weight: 700;
+				text-decoration: none;
+			}
+			.btn.primary {
+				background: var(--accent);
+				color: white;
+			}
+			.btn.ghost {
+				border-color: rgb(var(--gray-light));
+				color: rgb(var(--gray-dark));
+			}
+			.btn:hover {
+				box-shadow: var(--box-shadow);
+			}
+		</style>
+	</body>
+</html>
