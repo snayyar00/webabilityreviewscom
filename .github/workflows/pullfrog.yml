@@ -14,6 +14,13 @@ on:
 permissions:
   contents: read
 
+# One review at a time in this repo. Morph Ultra limits are per minute and
+# per subscription, shared by every repo and the product. GitHub keeps one
+# running and one pending run per group: a newer pending run replaces it.
+concurrency:
+  group: pullfrog-morph-ultra
+  cancel-in-progress: false
+
 jobs:
   pullfrog:
     runs-on: ubuntu-latest
@@ -30,6 +37,18 @@ jobs:
         with:
           prompt: ${{ inputs.prompt }}
         env:
+          # BYOK pin (top model precedence, skips the Pullfrog Router).
+          PULLFROG_MODEL: openai-compatible/byok
+          # Morph Ultra, OpenAI-compatible. Use ONLY the Ultra-plan models
+          # (morph-dsv41flash-1017, morph-kimik31). GLM models return no
+          # Ultra rate headers and may bill per token: never use them.
+          OPENAI_COMPATIBLE_BASE_URL: https://api.morphllm.com/v1
+          OPENAI_COMPATIBLE_API_KEY: ${{ secrets.MORPH_API_KEY }}
+          OPENAI_COMPATIBLE_MODEL: morph-dsv41flash-1017
+          # Per-request caps, not per-minute. 200K context makes opencode compact
+          # early; 8K max completion (thinking included).
+          OPENAI_COMPATIBLE_CONTEXT: "200000"
+          OPENAI_COMPATIBLE_MAX_OUTPUT: "8192"
           # add at least one provider API key
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
